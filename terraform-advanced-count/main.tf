@@ -26,3 +26,14 @@ resource "azurerm_container_registry" "acr" {
   sku                 = "Basic"
   admin_enabled       = false
 }
+
+# If ELSE
+# Terraform doesn’t support if-statements directly. However, you can accomplish the same thing by using the count parameter
+# Terraform supports conditional expressions of the format <CONDITION> ? <TRUE_VAL> : <FALSE_VAL>.
+# If you set count to 1 on a resource, you get one copy of that resource; 
+# if you set count to 0, that resource is not created at all.
+resource "azurerm_resource_group" "rg-test" {
+    count = var.create_rg ? 1 : 0
+    name     = "rg-test"
+    location = var.resource_group_location
+}

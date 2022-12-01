@@ -7,3 +7,6 @@ avengers_powers = {
     spiderman  : "web",
     thor :  "lighting"
   }
+
+# Used with if-else. false will set count =0  which means resource wont be created
+create_rg = false

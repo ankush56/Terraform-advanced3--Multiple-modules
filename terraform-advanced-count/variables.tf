@@ -23,3 +23,7 @@ variable "avengers_powers" {
   }
 }
 
+variable "create_rg" {
+  type        = bool
+}
+
