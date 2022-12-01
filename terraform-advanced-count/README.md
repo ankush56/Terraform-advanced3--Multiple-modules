@@ -7,7 +7,7 @@
 ## Always prefer to use for_each instead of count to create multiple copies of a resource.
 
 ## COUNT
-** ** count is Terraform’s oldest, simplest, and most limited iteration construct: all it does is define how many copies of the resource to create. Here’s how you use count to create three IAM users:
+** count is Terraform’s oldest, simplest, and most limited iteration construct: all it does is define how many copies of the resource to create. Here’s how you use count to create three IAM users:
 
 ```
 resource "aws_iam_user" "example" {
@@ -24,7 +24,7 @@ resource "aws_iam_user" "example" {
   name  = "neo.${count.index}"  # Now name will be diff for each
 }
 ```
-** ** Names now will be - (“neo.0”, “neo.1”, “neo.2”):
+** Names now will be - (“neo.0”, “neo.1”, “neo.2”):
 
 Of course, a username like “neo.0” isn’t particularly usable. If you combine count.index with some built-in functions from Terraform, you can customize each “iteration” of the “loop” even more.
 
@@ -64,9 +64,9 @@ output "all_arns" {
   description = "The ARNs for all users"
 }
 ```
-# FOR EACH LOOP
-# Loops with for_each expressions
-# The for_each expression allows you to loop over lists, sets, and maps to create (a) multiple copies of an entire resource, (b) multiple copies of an inline block within a resource, or (c) multiple copies of a module
+## FOR EACH LOOP
+## Loops with for_each expressions
+## The for_each expression allows you to loop over lists, sets, and maps to create (a) multiple copies of an entire resource, (b) multiple copies of an inline block within a resource, or (c) multiple copies of a module
 ```
 resource "<PROVIDER>_<TYPE>" "<NAME>" {
   for_each = <COLLECTION>
@@ -78,12 +78,12 @@ resource "aws_iam_user" "example" {
   name     = each.value
 }
 ```
-# Note the use of toset to convert the var.user_names list into a set. This is because for_each supports sets and maps only when used on a resource. When for_each loops over this set, it makes each username available in each.value. The username will also be available in each.key, though you typically use each.key only with maps of key-value pairs.
+## Note the use of toset to convert the var.user_names list into a set. This is because for_each supports sets and maps only when used on a resource. When for_each loops over this set, it makes each username available in each.value. The username will also be available in each.key, though you typically use each.key only with maps of key-value pairs.
 
-Once you’ve used for_each on a resource, it becomes a map of resources, rather than just one resource (or an array of resources as with count).
+> Once you’ve used for_each on a resource, it becomes a map of resources, rather than just one resource (or an array of resources as with count).
 
-# 
-# The fact that you now have a map of resources with for_each rather than an array of resources as with count is a big deal, because it allows you to remove items from the middle of a collection safely. For example, if you again remove “trinity” from the middle of the var.user_names list and run terraform plan, here’s what you’ll see:
+
+## The fact that you now have a map of resources with for_each rather than an array of resources as with count is a big deal, because it allows you to remove items from the middle of a collection safely. For example, if you again remove “trinity” from the middle of the var.user_names list and run terraform plan, here’s what you’ll see:
 
 $ terraform plan
 
@@ -100,14 +100,14 @@ Plan: 0 to add, 0 to change, 1 to destroy.
   
   
 ########################################
-# FOR loop
-# Terraform offers similar functionality in the form of a for expression (not to be confused with the for_each expression you saw in the previous section). The basic syntax of a for expression is as follows:
+## FOR loop
+## Terraform offers similar functionality in the form of a for expression (not to be confused with the for_each expression you saw in the previous section). The basic syntax of a for expression is as follows:
 ```
 [for <ITEM> in <LIST> : <OUTPUT>]
 
 for x in var.varname : upper(x) 
 ```
-# where LIST is a list to loop over, ITEM is the local variable name to assign to each item in LIST, and OUTPUT is an expression that transforms ITEM in some way. For example, here is the Terraform code to convert the list of names in var.names to uppercase:
+> where LIST is a list to loop over, ITEM is the local variable name to assign to each item in LIST, and OUTPUT is an expression that transforms ITEM in some way. For example, here is the Terraform code to convert the list of names in var.names to uppercase:
 
 example- #FOR LOOP not for-each
 ```
@@ -124,10 +124,10 @@ output "upper_names" {
   value = [for x in var.avengers : upper(x)]
 }
 ```
-This will print all in uppercase
+> This will print all in uppercase
 
-### Can also loop over map
-# terraform.tfvars-
+## Can also loop over map
+## terraform.tfvars-
 ```
 avengers_powers = {
     hulk      : "smash",
@@ -135,7 +135,7 @@ avengers_powers = {
     thor :  "lighting"
   }
 
-# variables.tf
+## variables.tf
 variable "avengers_powers" {
   type        = map(string)
   default     = {
@@ -145,7 +145,7 @@ variable "avengers_powers" {
   }
 }
 
-# output.tf-
+## output.tf-
 output "avengers_powers" {
   value = [for k, v in var.avengers_powers : " ${k} power is: ${v}"]
 }
@@ -153,9 +153,9 @@ output "avengers_powers" {
 
 ==========================================
 Conditionals
-** ** Just as Terraform offers several different ways to do loops, there are also several different ways to do conditionals, each intended to be used in a slightly different scenario:
+** Just as Terraform offers several different ways to do loops, there are also several different ways to do conditionals, each intended to be used in a slightly different scenario:
 
-** ** count parameter. Used for conditional resources
+** count parameter. Used for conditional resources
 for_each and for expressions. Used for conditional resources and inline blocks within a resource
 if string directive. Used for conditionals within a string
 
@@ -168,10 +168,10 @@ if string directive. Used for conditionals within a string
 ## Used with if-else. false will set count =0  which means resource wont be created
 
 ```
-#  in tfvars
+##  in tfvars
 create_rg = false 
 
-# variables.tf
+## variables.tf
 variable "create_rg" {
   type        = bool
 }
@@ -191,12 +191,12 @@ New file- terraform.tfvars--> Dont check into repo for most cases
 define variables in variables.tf without default value and set them in terraform.tfvars
 
 
-# OVERRIDE VARIABLE VALUE IN VARIBALES.TF
+> OVERRIDE VARIABLE VALUE IN VARIBALES.TF
 $ terraform console -var="host_os=linux"
 > var.host_os
 "linux"
 
-#read vars from any other file
+##read vars from any other file
 terraform console -var-file="some.tfvars"
 
 some.tfvars will override terraform.tfvars and terraform.tfvars will override variables.tf default value
