@@ -5,3 +5,7 @@ variable "rg_group_names" {
 
 variable "resource_group_location" {
 }
+
+variable "acr_names" {
+  type        = list(string)
+}
