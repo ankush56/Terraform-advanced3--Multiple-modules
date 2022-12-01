@@ -8,13 +8,15 @@
 # line 11-- loop thorugh list and get names
 
 # length, count, iterator loop
+
+###uncomment
 resource "azurerm_resource_group" "rg" {
     count   = length(var.rg_group_names)
     name     = var.rg_group_names[count.index]
     location = var.resource_group_location
 }
 
-# For each loop
+# For-each loop
 # Line 20, 21 sets loop
 resource "azurerm_container_registry" "acr" {
   for_each = toset(var.acr_names)

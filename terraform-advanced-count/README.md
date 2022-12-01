@@ -1,7 +1,7 @@
 # terraform-azure-advanced2 ------------------
 # COUNT
 # LOOP
-# LENGHT
+# LENGTH
 # FOREACH LOOP
 
 # Always prefer to use for_each instead of count to create multiple copies of a resource.
@@ -92,9 +92,58 @@ Terraform will perform the following actions:
     }
 
 Plan: 0 to add, 0 to change, 1 to destroy.
-# That’s more like it! You’re now deleting solely the exact resource you want, without shifting all of the other ones around. 
+# That’s more like it! You’re now deleting solely the exact resource you want, without shifting all of the other ones around.   
+  
+  
+# 
+# FOR loop
+# Terraform offers similar functionality in the form of a for expression (not to be confused with the for_each expression you saw in the previous section). The basic syntax of a for expression is as follows:
 
+[for <ITEM> in <LIST> : <OUTPUT>]
 
+for x in var.varname : upper(x) 
+
+# where LIST is a list to loop over, ITEM is the local variable name to assign to each item in LIST, and OUTPUT is an expression that transforms ITEM in some way. For example, here is the Terraform code to convert the list of names in var.names to uppercase:
+
+example- #FOR LOOP not for-each
+
+variables-
+variable "avengers" {
+  type        = list(string)
+}
+
+.tfvars
+avengers = [ "hulk", "spiderman", "ironman", "thor" ]
+
+output.tf
+output "upper_names" {
+  value = [for x in var.avengers : upper(x)]
+}
+
+This will print all in uppercase
+
+### Can also loop over map
+# terraform.tfvars-
+avengers_powers = {
+    hulk      : "smash",
+    spiderman  : "web",
+    thor :  "lighting"
+  }
+
+# variables.tf
+variable "avengers_powers" {
+  type        = map(string)
+  default     = {
+    hulk      = "smash"
+    spiderman  = "web"
+    thor =  "lighting"
+  }
+}
+
+# output.tf-
+output "avengers_powers" {
+  value = [for k, v in var.avengers_powers : " ${k} power is: ${v}"]
+}
 ==========================================
 console for various tasks like checking variables values
 > terraform console

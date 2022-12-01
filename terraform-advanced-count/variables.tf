@@ -9,3 +9,17 @@ variable "resource_group_location" {
 variable "acr_names" {
   type        = list(string)
 }
+
+variable "avengers" {
+  type        = list(string)
+}
+
+variable "avengers_powers" {
+  type        = map(string)
+  default     = {
+    hulk      = "smash"
+    spiderman  = "web"
+    thor =  "lighting"
+  }
+}
+

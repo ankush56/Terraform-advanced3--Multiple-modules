@@ -16,3 +16,12 @@ output "all_acr_id" {
 output "all_acr" {
   value = values(azurerm_container_registry.acr)[*].login_server
 }
+
+#FOR LOOP not for-each
+output "upper_names" {
+  value = [for x in var.avengers : upper(x)]
+}
+
+output "avengers_powers" {
+  value = [for k, v in var.avengers_powers : " ${k} power is: ${v}"]
+}
