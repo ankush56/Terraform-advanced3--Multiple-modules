@@ -2,18 +2,16 @@
 
 ## Terraform modules encapsulate groups of resources dedicated to one task, reducing the amount of code you have to develop for similar infrastructure components.
 
-##### Modules are containers for multiple resources that are used together. A module consists of a collection of .tf and/or .tf.json files kept together in a directory.
-
-#### Modules are the main way to package and reuse resource configurations with Terraform.
-
 #### Problems that Terraform Modules Solve?
 
+**Code Repetition**
+**Lack of code clarity and compliance**
 
 **The Root Module**
 > Every Terraform configuration has at least one module, known as its root module, which consists of the resources defined in the .tf files in the main working directory.
 
 **Child Modules**
-A Terraform module (usually the root module of a configuration) can call other modules to include their resources into the configuration. A module that has been called by another module is often referred to as a child module.
+> A Terraform module (usually the root module of a configuration) can call other modules to include their resources into the configuration. A module that has been called by another module is often referred to as a child module.
 
 Child modules can be called multiple times within the same configuration, and multiple configurations can use the same child module.
 
@@ -65,4 +63,6 @@ module "terraform_test_module" {
 
 **Declare outputs in module folder. When root main.tf calls it, it will show**
 **terraform init in root folder**
+**Use precompiled modules from terraform registry**
+> [https://registry.terraform.io/]
 
