@@ -4,8 +4,8 @@
 
 #### Problems that Terraform Modules Solve?
 
-- Code Repetition
-- Lack of code clarity and compliance
+* Code Repetition
+* Lack of code clarity and compliance
 
 **The Root Module**
 > Every Terraform configuration has at least one module, known as its root module, which consists of the resources defined in the .tf files in the main working directory.
