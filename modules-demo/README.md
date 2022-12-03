@@ -78,3 +78,6 @@ Module "acr" {
   acr_name                =  var.acr_name
 }
 ```
+
+## Terraform Registry - [https://registry.terraform.io/search/modules]
+Search for prebuilt modules here
