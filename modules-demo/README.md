@@ -66,3 +66,15 @@ module "terraform_test_module" {
 **Use precompiled modules from terraform registry**
 > [https://registry.terraform.io/]
 
+  **For using output of another module...module being called must have output property field defined**
+  **For example, we called module.module_RG.resource_group_name_id this must be defined in output.tf of** 
+  **moduleRG**
+
+```
+Module "acr" {
+  source                  = "./modules/acr_rg"
+  acr_resource_group_name     = module.module_RG.resource_group_name_id # must be defined in output.tf of module_RG
+  acr_resource_group_location = var.resource_group_location
+  acr_name                =  var.acr_name
+}
+```

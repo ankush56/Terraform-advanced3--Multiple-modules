@@ -4,5 +4,9 @@ variable "resource_group_location" {
 }
 
 variable "resource_group_name" {
-  default = "terraform-module-rg1"
+  default = "terraform-rg1"
+}
+
+variable "acr_name" {
+  default = "acrmodule"
 }
