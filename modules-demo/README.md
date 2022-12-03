@@ -80,4 +80,5 @@ Module "acr" {
 ```
 
 ## Terraform Registry - [https://registry.terraform.io/search/modules]
+## Azure- [https://registry.terraform.io/search/modules?namespace=Azure]
 Search for prebuilt modules here
