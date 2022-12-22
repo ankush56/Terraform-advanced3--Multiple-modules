@@ -1,0 +1,2 @@
+# Specify libs reqd for python app
+flask
